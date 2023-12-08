@@ -10,7 +10,8 @@ import { faStar } from '@fortawesome/free-regular-svg-icons';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 
 
-const APIKEY = "eefffa08c2021907551807259c25b762";
+const APIKEY = "YOUR API KEY";
+const AUTHKEY = 'YOUR AUTH KEY';
 const IMGBASEPATH = "https://image.tmdb.org/t/p/original";
 
 SplashScreen.preventAutoHideAsync();
@@ -39,7 +40,7 @@ export default function Landing() {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZWZmZmEwOGMyMDIxOTA3NTUxODA3MjU5YzI1Yjc2MiIsInN1YiI6IjY1NzBkMDBiODViMTA1MDE0ZDA1MGU4YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.v9i2mb1IQouIKfjtUUYs9-o2QXEofwwW_mbcaCeFNsI'
+        Authorization: AUTHKEY
       }
     };
 

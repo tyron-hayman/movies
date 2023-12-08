@@ -8,8 +8,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Landing from './components/landing';
 import People from './components/people';
 
-const APIKEY = "eefffa08c2021907551807259c25b762";
-const IMGBASEPATH = "https://image.tmdb.org/t/p/original";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
