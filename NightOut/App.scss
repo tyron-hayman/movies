@@ -1,0 +1,131 @@
+// Variables
+$black : #000000;
+$bgColor : #080808;
+$buttons : #6600CC;
+$white : #ffffff;
+$red : #FF3B3B;
+
+$fontsize : 14px;
+
+// Global
+
+.appFooter {
+    background: $red;
+    padding: 5%;
+    margin: 0 5% 50px 5%;
+    border-radius: 10px;
+}
+
+.appFooterTitle {
+    font-family: "dm-xbold";
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: $white;
+}
+
+.appFooterText {
+    font-family: "dm-regular";
+    color: $white;
+    font-size: $fontsize;
+}
+
+// Landing
+.container {
+    flex: 1;
+    background: $bgColor;
+}
+.landingBGImage {
+    width: 100%;
+}
+.header {
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    height: 400px;
+}
+.headerContent {
+    flex-wrap: wrap;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    padding: 5%;
+}
+.landingSubTitle {
+    width: 100%;
+    font-family: "dm-regular";
+    color: $white;
+    font-size: 15px;
+    line-height: 15px;
+    margin-bottom: 10px;
+}
+.landingTitle {
+    width: 100%;
+    font-family: "dm-xbold";
+    color: $white;
+    font-size: 45px;
+    line-height: 48px;
+}
+.landingTitleDate {
+    font-family: "dm-regular";
+    color: $white;
+    font-size: 15px;
+    line-height: 15px;
+}
+.landingRating {
+    color: $white;
+    font-size: 15px;
+    background: $red;
+    padding: 10px;
+    border-radius: 25px;
+    font-family: "dm-xbold";
+}
+.scrollViewTrending {
+    padding: 0 5%;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+.scrollViewTrendingTitle {
+    font-family: "dm-xbold";
+    color: $white;
+    padding: 5%;
+    font-size: 25px;
+    margin-top: 10px;
+}
+.trendingItems {
+    flex-direction: row;
+    width: 200px;
+    height: 250px;
+    margin-right: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.trendingItemTitle {
+    font-family: "dm-xbold";
+    color: $white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: $fontsize;
+    background-color: rgba(0,0,0,0.5);
+    padding: 5%;
+    width: 100%;
+}
+.trendingItemsImg {
+    width: 100%;
+    flex: 1;
+}
+
+// People 
+
+.containerPeople {
+    flex: 1;
+    background-color: $bgColor;}
+.peopleBgImage {
+    width: 100%;
+    height: 500px;
+}
+.peopleView {
+    flex-direction: row;
+}
+.peopleViewTitle {
+    color: $white;
+}

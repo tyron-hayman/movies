@@ -1,0 +1,179 @@
+import React, {useEffect, useState, useCallback} from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { ActivityIndicator, ImageBackground, StyleSheet, Text, View, Image, SafeAreaView, Button, Pressable, ScrollView, FlatList, TouchableWithoutFeedback } from 'react-native';
+import Appstyles from '../App.scss';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import Footer from '../components/footer';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
+
+
+const APIKEY = "eefffa08c2021907551807259c25b762";
+const IMGBASEPATH = "https://image.tmdb.org/t/p/original";
+
+SplashScreen.preventAutoHideAsync();
+
+export default function Landing() {
+
+  const navigation = useNavigation();
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [tvData, setTVData] = useState([]);
+  const [peopleData, setPeopleData] = useState([]);
+  const [initImage, setInitImage] = useState([]);
+  const [initTitle, setInitTitle] = useState([]);
+  const [initYear, setInitYear] = useState([]);
+  const [initRate, setInitRate] = useState([]);
+
+  const [isLoaded] = useFonts({
+    "dm-xbold": require("../assets/fonts/DMSans_18pt-Black.ttf"),
+    "dm-regular": require("../assets/fonts/DMSans_18pt-Regular.ttf"),
+  });
+
+  let fetchMovies = async (action) => {
+    setLoading(true);
+
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZWZmZmEwOGMyMDIxOTA3NTUxODA3MjU5YzI1Yjc2MiIsInN1YiI6IjY1NzBkMDBiODViMTA1MDE0ZDA1MGU4YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.v9i2mb1IQouIKfjtUUYs9-o2QXEofwwW_mbcaCeFNsI'
+      }
+    };
+
+    try {
+        const response = await fetch(`https://api.themoviedb.org/3/${action}?language=en-US&api-key=${APIKEY}`, options);
+        const json = await response.json();
+        return json;
+    } catch (error) {
+      console.error(error);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+
+  };
+
+  let initFeatured = async (action) => {
+    let json = await fetchMovies(action);
+    let initMovieDate = new Date(json.results[0].release_date);
+    setInitImage(IMGBASEPATH + json.results[0].backdrop_path);
+    setInitTitle(json.results[0].original_title);
+    setInitYear(initMovieDate.toDateString());
+    setInitRate(json.results[0].vote_average)
+  }
+
+  let initMovies = async (action) => {
+    let json = await fetchMovies(action);
+    setData(json.results);
+  }
+
+  let initTv = async (action) => {
+    let json = await fetchMovies(action);
+    setTVData(json.results);
+  }
+
+  let initPeople = async (action) => {
+    let json = await fetchMovies(action);
+    console.log(json);
+    setPeopleData(json.results);
+
+  }
+
+  const handleOnLayout = useCallback(async () => {
+    if (isLoaded) {
+      await SplashScreen.hideAsync(); //hide the splashscreen
+    }
+  }, [isLoaded]);
+
+  useEffect(() => {
+    initFeatured('movie/top_rated?page=1&')
+    initMovies('trending/movie/day');
+    initTv('trending/tv/day');
+    initPeople('person/popular?page=1&');
+  }, []);
+
+  let bgImageLanding = {uri : initImage};
+
+  const renderItem = ({ item }) => (
+    <View style={Appstyles.trendingItems}>
+        <ImageBackground source={{uri : IMGBASEPATH + item.backdrop_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
+            <Text style={Appstyles.trendingItemTitle}>{item.original_title}</Text>
+        </ImageBackground>
+    </View>
+  );
+
+  const renderItemTV = ({ item }) => (
+    <View style={Appstyles.trendingItems}>
+        <ImageBackground source={{uri : IMGBASEPATH + item.backdrop_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
+            <Text style={Appstyles.trendingItemTitle}>{item.name}</Text>
+        </ImageBackground>
+    </View>
+  );
+  const renderItemPeople = ({ item }) => (
+    <View style={Appstyles.trendingItems}>
+      <TouchableWithoutFeedback 
+      onPress={() =>
+        navigation.navigate('People', { id: item.id })
+      }>
+        <ImageBackground source={{uri : IMGBASEPATH + item.profile_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
+            <Text style={Appstyles.trendingItemTitle}>{item.name}</Text>
+        </ImageBackground>
+        </TouchableWithoutFeedback>
+    </View>
+  );
+  
+  return (
+    <ScrollView style={Appstyles.container} onLayout={handleOnLayout}>
+      {isLoading ? (
+        <ActivityIndicator />
+        ) : (
+          <View style={Appstyles.landing}>
+            <ImageBackground source={bgImageLanding} resizeMode="cover" style={Appstyles.landingBGImage}>
+              <View style={Appstyles.header}>
+                <View style={Appstyles.headerContent}>
+                  <Text style={Appstyles.landingSubTitle}>Trending</Text>
+                  <Text style={Appstyles.landingTitle}>{initTitle}</Text>
+                  <Text style={Appstyles.landingRating}>User Score:  {initRate}/10</Text>
+                </View>
+              </View>
+            </ImageBackground>
+            <Text style={Appstyles.scrollViewTrendingTitle}>Trending Movies</Text>
+            <FlatList 
+                style={Appstyles.scrollViewTrending}
+                data={data}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                horizontal
+            />
+            <Text style={Appstyles.scrollViewTrendingTitle}>Treding TV</Text>
+            <FlatList 
+                style={Appstyles.scrollViewTrending}
+                data={tvData}
+                renderItem={renderItemTV}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                horizontal
+            />
+            <Text style={Appstyles.scrollViewTrendingTitle}>Treding People</Text>
+            <FlatList 
+                style={Appstyles.scrollViewTrending}
+                data={peopleData}
+                renderItem={renderItemPeople}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                horizontal
+            />
+            <Footer />
+          </View>
+      )}
+        <StatusBar style="light" />
+    </ScrollView>
+  );
+}
