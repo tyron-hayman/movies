@@ -8,11 +8,11 @@ import Footer from '../components/footer';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {REACT_APP_APIKEY, REACT_APP_AUTHKEY} from "@env"
 
-
-const APIKEY = "YOUR API KEY";
-const AUTHKEY = 'YOUR AUTH KEY';
-const IMGBASEPATH = "https://image.tmdb.org/t/p/original";
+const APIKEY = REACT_APP_APIKEY;
+const AUTHKEY = REACT_APP_AUTHKEY;
+const IMGBASEPATH = "https://image.tmdb.org/t/p/";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -60,7 +60,7 @@ export default function Landing() {
   let initFeatured = async (action) => {
     let json = await fetchMovies(action);
     let initMovieDate = new Date(json.results[0].release_date);
-    setInitImage(IMGBASEPATH + json.results[0].backdrop_path);
+    setInitImage(IMGBASEPATH + "w1280/" + json.results[0].backdrop_path);
     setInitTitle(json.results[0].original_title);
     setInitYear(initMovieDate.toDateString());
     setInitRate(json.results[0].vote_average)
@@ -97,10 +97,12 @@ export default function Landing() {
   }, []);
 
   let bgImageLanding = {uri : initImage};
+  let bgImageW = "w780/";
+  let bgProImageW = "w185/";
 
   const renderItem = ({ item }) => (
     <View style={Appstyles.trendingItems}>
-        <ImageBackground source={{uri : IMGBASEPATH + item.backdrop_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
+        <ImageBackground source={{uri : IMGBASEPATH + bgImageW + item.backdrop_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
             <Text style={Appstyles.trendingItemTitle}>{item.original_title}</Text>
         </ImageBackground>
     </View>
@@ -108,7 +110,7 @@ export default function Landing() {
 
   const renderItemTV = ({ item }) => (
     <View style={Appstyles.trendingItems}>
-        <ImageBackground source={{uri : IMGBASEPATH + item.backdrop_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
+        <ImageBackground source={{uri : IMGBASEPATH + bgImageW + item.backdrop_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
             <Text style={Appstyles.trendingItemTitle}>{item.name}</Text>
         </ImageBackground>
     </View>
@@ -119,7 +121,7 @@ export default function Landing() {
       onPress={() =>
         navigation.navigate('People', { id: item.id })
       }>
-        <ImageBackground source={{uri : IMGBASEPATH + item.profile_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
+        <ImageBackground source={{uri : IMGBASEPATH + bgProImageW + item.profile_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
             <Text style={Appstyles.trendingItemTitle}>{item.name}</Text>
         </ImageBackground>
         </TouchableWithoutFeedback>

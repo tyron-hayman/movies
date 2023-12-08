@@ -6,12 +6,11 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import Footer from '../components/footer';
 import {NavigationContainer, useNavigation, route} from '@react-navigation/native';
+import {REACT_APP_APIKEY, REACT_APP_AUTHKEY} from "@env"
 
-
-
-const APIKEY = "YOUR API KEY";
-const AUTHKEY = 'YOUR AUTH KEY';
-const IMGBASEPATH = "https://image.tmdb.org/t/p/original";
+const APIKEY = REACT_APP_APIKEY;
+const AUTHKEY = REACT_APP_AUTHKEY;
+const IMGBASEPATH = "https://image.tmdb.org/t/p/";
 
 SplashScreen.preventAutoHideAsync();
 
