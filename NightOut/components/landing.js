@@ -170,7 +170,6 @@ export default function Landing() {
                 showsHorizontalScrollIndicator={false}
                 horizontal
             />
-            <Footer />
           </View>
       )}
         <StatusBar style="light" />

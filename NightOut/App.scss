@@ -9,6 +9,21 @@ $fontsize : 18px;
 
 // Global
 
+.innerNav {
+    position: absolute;
+    top: 50px;
+    left: 5%;
+    z-index: 3;
+    padding: 10px;
+    background-color: $black;
+    border-radius: 9999px;
+}
+
+.backButton {
+    width: 50px;
+    height: 50px;
+}
+
 .appFooter {
     background: $red;
     padding: 5%;
@@ -159,16 +174,16 @@ $fontsize : 18px;
     font-size: $fontsize;
     line-height: 30px;
     width: 100%;
-    margin-bottom: 50px;
 }
 .peopleTitleCredit, .peopleBioTitle {
     font-family: "dm-xbold";
     color: $white;
     font-size: 30px;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
 .scrollViewCredits {
     padding-left: 5%;
+    margin-bottom: 50px;
 }

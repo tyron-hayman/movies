@@ -8,7 +8,7 @@ import Footer from '../components/footer';
 import {NavigationContainer, useNavigation, route} from '@react-navigation/native';
 import {REACT_APP_APIKEY, REACT_APP_AUTHKEY} from "@env";
 import { LinearGradient } from 'expo-linear-gradient';
-
+import InnerNav from './innerNav';
 const APIKEY = REACT_APP_APIKEY;
 const AUTHKEY = REACT_APP_AUTHKEY;
 const IMGBASEPATH = "https://image.tmdb.org/t/p/";
@@ -91,6 +91,7 @@ export default function People({ route }) {
         <ActivityIndicator />
         ) : (
           <View style={Appstyles.peopleView}>
+            <InnerNav />
             <ImageBackground source={{ url :  peopleImage }} resizeMode="cover" style={Appstyles.peopleBgImage}>
               <LinearGradient
                 // Background Linear Gradient
@@ -103,7 +104,10 @@ export default function People({ route }) {
               <Text style={Appstyles.peopleTitle}>{peopleName}</Text>
             </View>
             <View style={Appstyles.peopleViewBio}>
-              <Text style={Appstyles.peopleTitleCredit}>Credits</Text>
+              <Text style={Appstyles.peopleBio}>{peopleBio}</Text>
+            </View>
+            <View style={Appstyles.peopleViewBio}>
+              <Text style={Appstyles.peopleTitleCredit}>Known For</Text>
             </View>
             <FlatList 
                 style={Appstyles.scrollViewCredits}
@@ -114,10 +118,6 @@ export default function People({ route }) {
                 showsHorizontalScrollIndicator={false}
                 horizontal
             />
-            <View style={Appstyles.peopleViewBio}>
-            <Text style={Appstyles.peopleBioTitle}>About</Text>
-              <Text style={Appstyles.peopleBio}>{peopleBio}</Text>
-            </View>
           </View>
       )}
         <StatusBar style="light" />
