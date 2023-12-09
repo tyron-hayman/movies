@@ -27,7 +27,7 @@ export default function InnerNav() {
     <View style={Appstyles.innerNav}>
         <Text style={Appstyles.backButton} onPress={() => {
                 navigation.goBack();
-            }}><FontAwesomeIcon style={Appstyles.backButtonIcon} icon={faArrowLeft} color={ '#ffffff' }/></Text>
+            }}><FontAwesomeIcon style={Appstyles.backButtonIcon} icon={faArrowLeft} size={30} color={ '#ffffff' }/></Text>
     </View>
   );
 }

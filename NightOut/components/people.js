@@ -52,9 +52,13 @@ export default function People({ route }) {
 
   let initPeople = async (action) => {
     let json = await fetchMovies(action);
+    let bio = json.biography;
+    if ( bio == "" || !bio) {
+      bio = "This person does not information available within our app ecosystem.";
+    }
     setPeopleName(json.name);
     setPeopleImage(IMGBASEPATH + "/original" + json.profile_path);
-    setPeopleBio(json.biography);
+    setPeopleBio(bio);
   }
 
   let initCredits = async (action) => {

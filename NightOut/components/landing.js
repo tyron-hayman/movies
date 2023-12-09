@@ -7,6 +7,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import Footer from '../components/footer';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {REACT_APP_APIKEY, REACT_APP_AUTHKEY} from "@env"
 
@@ -119,7 +120,7 @@ export default function Landing() {
         navigation.navigate('People', { id: item.id })
       }>
         <ImageBackground source={{uri : IMGBASEPATH + bgProImageW + item.profile_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
-            <Text style={Appstyles.trendingItemTitle}>{item.name}</Text>
+            <Text style={Appstyles.trendingItemPeopleTitle}>{item.name}</Text>
         </ImageBackground>
         </TouchableWithoutFeedback>
     </View>
@@ -136,9 +137,15 @@ export default function Landing() {
                 <View style={Appstyles.headerContent}>
                   <Text style={Appstyles.landingSubTitle}>Trending</Text>
                   <Text style={Appstyles.landingTitle}>{initTitle}</Text>
-                  <Text style={Appstyles.landingRating}>User Score:  {initRate}/10</Text>
+                  <Text style={Appstyles.landingRating}>Average Rating: {initRate}</Text>
                 </View>
               </View>
+              <LinearGradient
+                // Background Linear Gradient
+                colors={['transparent', '#080808']}
+                style={Appstyles.gradBackgroundLanding}
+                start={{x: 0.5, y: 0}} and end={{x:0.5, y:1}}
+              />
             </ImageBackground>
             <Text style={Appstyles.scrollViewTrendingTitle}>Trending Movies</Text>
             <FlatList 
