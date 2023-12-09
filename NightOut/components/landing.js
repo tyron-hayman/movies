@@ -78,7 +78,6 @@ export default function Landing() {
 
   let initPeople = async (action) => {
     let json = await fetchMovies(action);
-    console.log(json);
     setPeopleData(json.results);
 
   }
@@ -102,16 +101,14 @@ export default function Landing() {
 
   const renderItem = ({ item }) => (
     <View style={Appstyles.trendingItems}>
-        <ImageBackground source={{uri : IMGBASEPATH + bgImageW + item.backdrop_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
-            <Text style={Appstyles.trendingItemTitle}>{item.original_title}</Text>
+        <ImageBackground source={{uri : IMGBASEPATH + bgImageW + item.poster_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
         </ImageBackground>
     </View>
   );
 
   const renderItemTV = ({ item }) => (
     <View style={Appstyles.trendingItems}>
-        <ImageBackground source={{uri : IMGBASEPATH + bgImageW + item.backdrop_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
-            <Text style={Appstyles.trendingItemTitle}>{item.name}</Text>
+        <ImageBackground source={{uri : IMGBASEPATH + bgImageW + item.poster_path}} resizeMode="cover" style={Appstyles.trendingItemsImg}>
         </ImageBackground>
     </View>
   );
